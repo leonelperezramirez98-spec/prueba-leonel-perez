@@ -19,23 +19,18 @@ services:
       retries: 12
       start_period: 30s
 
-  dev:
-    image: mcr.microsoft.com/dotnet/sdk:10.0
-    working_dir: /workspace
-    command: sleep infinity
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
     environment:
-      DOTNET_CLI_TELEMETRY_OPTOUT: "1"
-      DOTNET_NOLOGO: "1"
-      DOTNET_USE_POLLING_FILE_WATCHER: "true"
+      ASPNETCORE_ENVIRONMENT: Development
+      ConnectionStrings__DefaultConnection: "Server=db,1433;Database=MaintenanceDb;User Id=sa;Password=${DB_PASSWORD:-Dev_Passw0rd_2026};TrustServerCertificate=True;"
     ports:
       - "${APP_PORT:-8080}:8080"
-    volumes:
-      - .:/workspace
-      - nuget-cache:/root/.nuget/packages
     depends_on:
       db:
         condition: service_healthy
 
 volumes:
   db-data:
-  nuget-cache:
