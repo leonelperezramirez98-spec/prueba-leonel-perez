@@ -24,3 +24,9 @@ Además de las validaciones en código, se agregaron restricciones a nivel de ba
 ## 5. Puntos de Mejora a Futuro
 * **Paginación por cursor o "Keyset pagination":** En `/api/maintenance-requests`, sustituir `Skip/Take` por paginación basada en `(CreatedAt, Id)` para mantener tiempos de respuesta constantes cuando crezca el volumen de registros.
 * **Pruebas de integración:** Complementar los tests unitarios con pruebas de integración usando Testcontainers para validar contra una instancia real de SQL Server tanto los índices filtrados como las consultas T-SQL de Dapper.
+
+## 6. Uso de Herramientas de IA
+Se utilizaron herramientas de IA como apoyo de consulta técnica y revisión durante el desarrollo, principalmente para:
+- **Revisión de redacción y claridad:** Validar la estructura y redacción de `README.md` y `DECISIONES.md` para asegurar que los supuestos, instrucciones y decisiones técnicas estuvieran documentados de forma clara.
+- **Optimización de consultas y métodos:** Revisar las consultas T-SQL y la lógica de los servicios para evitar redundancias, ciclos innecesarios o problemas de rendimiento (como productos cartesianos en los `JOIN` de los reportes o consultas N+1).
+- **Validación de configuración:** Contrastar compatibilidades de paquetes en .NET 10 y restricciones de esquema en SQL Server (`DeleteBehavior.Restrict` e índices filtrados) antes de aplicar las migraciones.
